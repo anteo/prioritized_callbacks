@@ -11,7 +11,7 @@ Gem::Specification.new do |s|
   s.email         = 'anton.argirov@gmail.com'
   s.homepage      = 'https://github.com/anteo/prioritized_callbacks'
   s.license       = 'MIT'
-  s.files         = `git ls-files`.split($/)
+  s.files         = Dir.glob("{gemfiles,lib,spec}/**/*") + %w(.rspec Appraisals Gemfile LICENSE.txt prioritized_callbacks.gemspec Rakefile README.md)
   s.test_files    = s.files.grep(%r{^(test|spec|features)/})
   s.require_paths = ['lib']
 
