@@ -6,6 +6,16 @@ which are executed last despite of the order in which they were initially added.
 
 **WARNING!** Do not use this gem unless you know that's the only way.
 
+## Install
+
+Add the following line to Gemfile:
+
+`gem 'prioritized_callbacks'`
+
+## Compatibility
+
+It is checked against all Rails versions >= 5.0 and Ruby >= 2.7
+
 ## Usage
 
 ### Using pure ActiveSupport::Callbacks:
