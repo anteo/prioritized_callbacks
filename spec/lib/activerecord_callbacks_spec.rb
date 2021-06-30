@@ -137,4 +137,20 @@ RSpec.describe ActiveRecord::Callbacks do
   it "has proper order when new order item is appended to the beginning" do
     expect(record6.text).to eq('Y1023X4956')
   end
+
+  it "should fail when existing order item is appended" do
+    expect do
+      class FailingRecord < Record2
+        append_save_order :first, :second, :last
+      end
+    end.to raise_error(ArgumentError, 'Order item(s) :first, :last already exist for save callbacks')
+  end
+
+  it "should fail when order item doesn't exist" do
+    expect do
+      class FailingRecord < Record2
+        append_save_order :second, before: :nonexisting
+      end
+    end.to raise_error(ArgumentError, 'Order item :nonexisting is not defined for save callbacks')
+  end
 end
