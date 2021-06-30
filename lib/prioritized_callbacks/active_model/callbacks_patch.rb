@@ -10,7 +10,10 @@ module PrioritizedCallbacks
 
         callbacks.each do |callback|
           define_singleton_method "set_#{callback}_order" do |*args|
-            set_callbacks_order(:"#{callback}", args)
+            set_callbacks_order(callback, args)
+          end
+          define_singleton_method "append_#{callback}_order" do |*args, **options|
+            append_callbacks_order(callback, args, options)
           end
         end
       end

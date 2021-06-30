@@ -87,10 +87,28 @@ RSpec.describe ActiveRecord::Callbacks do
     end
   end
 
+  class Record5 < Record2
+    append_save_order :final
+
+    before_save priority: :final do
+      self.text += 'X'
+    end
+  end
+
+  class Record6 < Record5
+    append_save_order :initial, before: :first
+
+    before_save priority: :initial do
+      self.text += 'Y'
+    end
+  end
+
   let(:record1) { Record1.new.tap(&:save) }
   let(:record2) { Record2.new.tap(&:save) }
   let(:record3) { Record3.new.tap(&:save) }
   let(:record4) { Record4.new.tap(&:save) }
+  let(:record5) { Record5.new.tap(&:save) }
+  let(:record6) { Record6.new.tap(&:save) }
 
   it 'has default order if order is not specified' do
     expect(record1.text).to eq('012934')
@@ -110,5 +128,13 @@ RSpec.describe ActiveRecord::Callbacks do
 
   it "has proper order when around is used" do
     expect(record4.text).to eq('1342')
+  end
+
+  it "has proper order when new order item is appended" do
+    expect(record5.text).to eq('1023X4956')
+  end
+
+  it "has proper order when new order item is appended to the beginning" do
+    expect(record6.text).to eq('Y1023X4956')
   end
 end

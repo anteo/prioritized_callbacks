@@ -112,4 +112,12 @@ set_callbacks_order :save, [..., :default, ...]
 The latter can be used outside of ActiveRecord, in ActionController or ActiveModel, where ActiveSupport::Callbacks
 are included.
 
+To append the order in any inherited class:
+
+```ruby
+append_save_order :my_order, before: :default
+```
+
+You can specify `:before` or `:after` to specify a place where new order item should be inserted.
+
 2) To set priority for specific callback, you should add `:priority` option to `before_save` or `after_save`.
